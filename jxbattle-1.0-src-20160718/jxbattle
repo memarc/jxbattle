@@ -1,0 +1,5 @@
+if [ ! -f dist/jxbattle-1.0.jar ]; then
+  echo 'Jxbattle not built yet, please run ant before.' >&2
+  exit 1
+fi
+java -cp lib/miglayout-4.0-swing.jar:dist/jxbattle-1.0.jar jxbattle.ApplicationLauncher

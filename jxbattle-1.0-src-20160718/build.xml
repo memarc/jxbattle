@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="all" name="Create runnable jar for project jXBattle">
+	<property environment="env" />
+	<property name="dev.dir" value="${env.DEV_DIR}" />
+
+	<property name="jxbattle.jarname" value="jxbattle-1.0.jar" />
+	<property name="main.class" value="jxbattle.ApplicationLauncher" />
+	<property name="miglayout.jar" value="miglayout-4.0-swing.jar" />
+
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="build" />
+		<mkdir dir="dist" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="build">
+			<include name="**/*.java" />
+
+			<classpath>
+				<fileset dir="lib">
+					<include name="${miglayout.jar}" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="dist/${jxbattle.jarname}">
+			<fileset dir="build">
+				<include name="**/*.class" />
+				<include name="lib/**" />
+			</fileset>
+			
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="all" depends="jar">
+	</target>
+</project>
